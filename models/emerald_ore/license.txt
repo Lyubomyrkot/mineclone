@@ -1,0 +1,11 @@
+Model Information:
+* title:	Minecraft Emerald Ore
+* source:	https://sketchfab.com/3d-models/minecraft-emerald-ore-936da51e723843e9b35cea9201fe6db1
+* author:	Coller (https://sketchfab.com/TheCollerroller)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Minecraft Emerald Ore" (https://sketchfab.com/3d-models/minecraft-emerald-ore-936da51e723843e9b35cea9201fe6db1) by Coller (https://sketchfab.com/TheCollerroller) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

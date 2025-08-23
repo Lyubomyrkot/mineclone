@@ -1,0 +1,11 @@
+Model Information:
+* title:	Minecraft Coal Ore
+* source:	https://sketchfab.com/3d-models/minecraft-coal-ore-6aa14a6c8b334459baee7aec31b75463
+* author:	Coller (https://sketchfab.com/TheCollerroller)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Minecraft Coal Ore" (https://sketchfab.com/3d-models/minecraft-coal-ore-6aa14a6c8b334459baee7aec31b75463) by Coller (https://sketchfab.com/TheCollerroller) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

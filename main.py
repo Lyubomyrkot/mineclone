@@ -27,6 +27,21 @@ grass4 = Entity(model='models/grass/scene',
 tree = Entity(model='models/tree/scene',
                position=(-0.5, -2.5, 0.5),
                scale=7,)
-    
+
+bed = Entity(model='models/bed/scene',
+                position=(2, 0, 2),
+                scale=0.5,)
+
+coal_ore = Entity(model='models/coal_ore/scene',
+                position=(0.5, -0.5, -0.5),)
+
+cobblestone = Entity(model='models/cobblestone/scene',
+                position=(0.5, -0.5, 1.5),)
+
+#diamond_block = Entity(model='models/diamond_block/scene',
+                #position=(-1.5, -0.5, 1.5),)
+
+diamond_ore = Entity(model='models/diamond_ore/scene',
+                position=(-1.5, -0.5, -0.5),)
 EditorCamera()
 app.run()
