@@ -44,6 +44,18 @@ class Flower(Entity):
             origin_y=0.5,
         )
 
+class Coal_ore(Entity):
+    def __init__(self, pos, **kwargs):
+        super().__init__(
+            model='models/coal_ore/scene.gltf', 
+            position=(pos),
+            shader= basic_lighting_shader,
+            collider='box',
+            origin_x=0.5,
+            origin_y=0.5,
+            origin_z=0.5,
+        )
+#Blocks = {}
 
 class Map(Entity):
     def __init__(self, **kwargs):
@@ -60,7 +72,13 @@ class Map(Entity):
             for z in range(size):
                 y = floor(self.noise([x/size, z/size]) * 6)
                 block = Block(pos =(x, y-0.5, z))
-                stone = Stone(pos =(x, y-1, z))
+
+                layer = 3
+                while layer > 0:
+                    pos = (x, y-layer, z)
+                    stone = Stone(pos=pos)
+                    layer -= 1
+                    self.blocks[pos] = stone
 
                 n_tree = randint(1, 60)
                 if n_tree == 1:
@@ -70,15 +88,13 @@ class Map(Entity):
                 if n_flower == 1:
                     flower = Flower(pos=(x, y+1, z),)
 
-                # n_stone = randint(1, 40)
-                # if n_stone == 1:
-                #     stone = Stone(pos=(x, y+1, z),)
+                n_coal_ore = randint(1, 10)
+                if n_coal_ore == 1:
+                    pos_coal_ore = (x, y-randint(1, 3), z)
 
+                    if pos_coal_ore in self.blocks:
+                        destroy(self.blocks[pos_coal_ore])
+                        del self.blocks[pos_coal_ore]
 
-
-
-
-
-
-
-        
+                    coal_ore = Coal_ore(pos=pos_coal_ore)
+                    self.blocks[pos_coal_ore] = coal_ore
