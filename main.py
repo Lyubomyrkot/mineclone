@@ -8,7 +8,7 @@ sky = Sky(texture = 'sky_sunset',)
 
 map = Map()
 map.new_map(20)
-
+ 
 player = Player(position = (0, 15, 0))
 
 # grass = Entity(model='models/grass/scene',

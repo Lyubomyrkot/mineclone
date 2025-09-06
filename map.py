@@ -3,6 +3,37 @@ from perlin_noise import PerlinNoise
 from ursina.shaders import basic_lighting_shader, lit_with_shadows_shader
 from random import randint
 from numpy import floor
+import os
+
+BASE_DIR = os.getcwd()
+TEXSTURE_DIR = os.path.join(BASE_DIR, 'blocks')
+
+filename_list = os.listdir(TEXSTURE_DIR)
+texture_list = []
+
+for filename in filename_list:
+    texture = load_texture(f'blocks/{filename}')
+    texture_list.append(texture)
+
+
+
+
+
+
+class Block_scrol(Entity):
+    current = 0
+    max_block = len(texture_list) - 1
+    def __init__(self, pos, block_texture=0, **kwargs):
+        super().__init__(
+            model='cube', 
+            scale=1,
+            origin_y=-0.5,
+            texture = texture_list[block_texture],
+            position=(pos),
+            shader= basic_lighting_shader,
+            collider='box',
+            **kwargs
+        )
 
 class Block(Entity):
     def __init__(self, pos, **kwargs):
@@ -11,8 +42,10 @@ class Block(Entity):
             scale=0.5,
             position=(pos),
             shader= basic_lighting_shader,
-            collider='box'
+            collider='box',
+            **kwargs
         )
+
 class Stone(Entity):
     def __init__(self, pos, **kwargs):
         super().__init__(
