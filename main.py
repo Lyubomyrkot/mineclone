@@ -5,11 +5,16 @@ from player import Player
 app = Ursina()
 
 sky = Sky(texture = 'sky_sunset',)
-
 map = Map()
-map.new_map(20)
+#map.new_map(20)
  
 player = Player(position = (0, 15, 0))
+map.player = player
+
+map.load_map()
+
+window.fullscreen = True
+app.run()
 
 # grass = Entity(model='models/grass/scene',
 #                position=(0, -0.5, 1),
@@ -42,4 +47,3 @@ player = Player(position = (0, 15, 0))
 
 
 # EditorCamera()
-app.run()
