@@ -6,13 +6,16 @@ app = Ursina()
 
 sky = Sky(texture = 'sky_sunset',)
 map = Map()
-#map.new_map(20)
  
 player = Player(position = (0, 15, 0))
 map.player = player
 
-map.load_map()
-
+try:
+    map.load_map()
+except:
+    map.new_map(20)
+    player.position = (0, 20, 0)
+print_on_screen("Команди\n Escape - вийти\n f - зберегти гру\n l - завантажити гру\n n - нова гра\n c - Літати", position=(-0.8,0.5), origin=(-.5, .5), scale=1.4, duration=100)
 window.fullscreen = True
 app.run()
 

@@ -35,7 +35,8 @@ class Block_scrol(Entity):
             collider='box',
             **kwargs
         )
-        scene.block_scrol[(self.x, self.y, self.z)] = block_texture
+        scene.block_scrol[(self.x, self.y, self.z)] = self
+        self.block_texture = block_texture
 
 class Block(Entity):
     def __init__(self, pos, **kwargs):
@@ -70,7 +71,7 @@ class Tree(Entity):
             collider='box',
             origin_y=0.5
         )
-        scene.trees[(self.x, self.y, self.z)] = self.scale
+        scene.trees[(self.x, self.y, self.z)] = self
 
 class Flower(Entity):
     def __init__(self, pos, **kwargs):
@@ -113,7 +114,33 @@ class Map(Entity):
         light.look_at(Vec3(1,-1,-1))
         
 
+    def clear_map(self):
+        for block in scene.block_scrol.values():
+            destroy(block)
+        scene.block_scrol = {}
+
+        for block in scene.block.values():
+            destroy(block)
+        scene.block = {}
+
+        for flower in scene.flowers.values():
+            destroy(flower)
+        scene.flowers = {}
+
+        for tree in scene.trees.values():
+            destroy(tree)
+        scene.trees = {}
+
+        for stone in scene.stones.values():
+            destroy(stone)
+        scene.stones = {}
+
+        for coal_ore in scene.coal_ore.values():
+            destroy(coal_ore)
+        scene.coal_ore = {}
+
     def new_map(self, size = 15):
+        self.clear_map()
         for x in range(-size, size):
             for z in range(size):
                 y = floor(self.noise([x/size, z/size]) * 6)
@@ -124,7 +151,6 @@ class Map(Entity):
                     pos = (x, y-layer, z)
                     stone = Stone(pos=pos)
                     layer -= 1
-                    #self.blocks[pos] = stone
 
                 n_tree = randint(1, 60)
                 if n_tree == 1:
@@ -144,17 +170,23 @@ class Map(Entity):
 
                     # coal_ore = Coal_ore(pos=pos_coal_ore)
                     # self.blocks[pos_coal_ore] = coal_ore
-        
+
     def input(self, key):
         if key == "f":
             self.save_map()
+            print_on_screen("Гра збережена", position=(-0.15,-0.4), origin=(-.5, .5), scale=1.4, duration=5)
         if key == "l":
             self.load_map()
+            print_on_screen("Гра завантажена", position=(-0.15,-0.4), origin=(-.5, .5), scale=1.4, duration=5)
+        if key == "n":
+            self.new_map(20)
+            self.player.position = (0, 15, 0)
+            print_on_screen("Нова гра", position=(-0.15,-0.4), origin=(-.5, .5), scale=1.4, duration=5)
 
     def save_map(self):
         game_data = {
             'player_pos': (self.player.x, self.player.y, self.player.z),
-            'block_scrol_pos': [(pos, block_texture) for pos, block_texture in scene.block_scrol.items()],
+            'block_scrol_pos': [(pos, block.block_texture) for pos, block in scene.block_scrol.items()],
             "trees_pos": [(pos, scale) for pos, scale in scene.trees.items()],
 
             "flowers_pos": [pos for pos, flowers in scene.flowers.items()],
@@ -166,11 +198,12 @@ class Map(Entity):
         }
         with open('save_map.dat', 'wb') as f:
             pickle.dump(game_data, f)
-        
+
     def load_map(self):
         with open('save_map.dat', 'rb') as f:
             game_data = pickle.load(f)
             self.player.position = game_data['player_pos']
+            self.clear_map()
 
             for pos, block_texture in game_data['block_scrol_pos']:
                 Block_scrol(pos, block_texture)

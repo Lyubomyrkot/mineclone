@@ -1,7 +1,7 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.shaders import basic_lighting_shader, lit_with_shadows_shader
-from map import Block_scrol, texture_list
+from map import Block_scrol, texture_list, Block, Stone, Flower, Tree, Coal_ore
 
 class Player(FirstPersonController):
     def __init__(self, **kwargs):
@@ -18,7 +18,26 @@ class Player(FirstPersonController):
     def input(self, key):
         if key == 'left mouse down':
             aim = raycast(camera.world_position, camera.forward, distance=6)
-            if aim.entity:
+            if aim.hit:
+                if isinstance(aim.entity, Block_scrol):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.block_scrol[(x,y,z)]
+                if isinstance(aim.entity, Block):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.block[(x,y,z)]
+                if isinstance(aim.entity, Stone):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.stones[(x,y,z)]
+                if isinstance(aim.entity, Tree):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.trees[(x,y,z)]
+                if isinstance(aim.entity, Flower):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.flowers[(x,y,z)]
+                if isinstance(aim.entity, Coal_ore):
+                    x,y,z = aim.entity.x, aim.entity.y, aim.entity.z
+                    del scene.coal_ores[(x,y,z)]
+                
                 destroy(aim.entity)
 
         if key == 'right mouse down':
